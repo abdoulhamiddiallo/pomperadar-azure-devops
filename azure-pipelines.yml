@@ -1,0 +1,89 @@
+# PompeRadar : intégration continue (CI) et livraison continue (CD)
+# Agent auto-hébergé sur mon PC Windows : 0 euro de consommation Azure.
+
+name: $(Date:yyyyMMdd)$(Rev:.r)
+
+trigger:
+  branches:
+    include:
+      - main
+  paths:
+    exclude:
+      - README.md
+      - docs
+
+pool:
+  name: PoolLocal
+
+variables:
+  pythonVenv: '.venv\Scripts\python.exe'
+  dossierPublication: 'C:\PompeRadar\publication'
+
+stages:
+  - stage: CI
+    displayName: 'CI : qualité du code et tests'
+    jobs:
+      - job: Tests
+        displayName: 'Lint et tests unitaires'
+        steps:
+          - checkout: self
+            clean: true
+          - script: python --version
+            displayName: 'Vérifier Python sur l''agent'
+          - script: python -m venv .venv
+            displayName: 'Créer l''environnement virtuel'
+          - script: $(pythonVenv) -m pip install -r requirements.txt
+            displayName: 'Installer les dépendances'
+          - script: $(pythonVenv) -m ruff check src tests
+            displayName: 'Analyse statique (ruff)'
+          - script: $(pythonVenv) -m pytest --junitxml=resultats-tests.xml
+            displayName: 'Tests unitaires (pytest)'
+          - task: PublishTestResults@2
+            displayName: 'Publier les résultats de tests'
+            condition: succeededOrFailed()
+            inputs:
+              testResultsFormat: 'JUnit'
+              testResultsFiles: 'resultats-tests.xml'
+              testRunTitle: 'Tests PompeRadar'
+
+  - stage: Donnees
+    displayName: 'Données réelles : ingestion et porte qualité'
+    dependsOn: CI
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+    jobs:
+      - job: Traitement
+        displayName: 'Flux officiel des prix des carburants'
+        steps:
+          - checkout: self
+            clean: true
+          - script: python -m venv .venv
+            displayName: 'Créer l''environnement virtuel'
+          - script: $(pythonVenv) -m pip install -r requirements.txt
+            displayName: 'Installer les dépendances'
+          - script: $(pythonVenv) src\executer.py
+            displayName: 'Ingestion, transformation, porte qualité'
+          - task: PublishPipelineArtifact@1
+            displayName: 'Publier l''artefact donnees-propres'
+            condition: succeededOrFailed()
+            inputs:
+              targetPath: 'data/propre'
+              artifact: 'donnees-propres'
+
+  - stage: CD
+    displayName: 'CD : publication en production'
+    dependsOn: Donnees
+    condition: succeeded()
+    jobs:
+      - deployment: Publier
+        displayName: 'Publier les données validées'
+        environment: 'pompe-radar-prod'
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - download: current
+                  artifact: donnees-propres
+                - script: if not exist "$(dossierPublication)" mkdir "$(dossierPublication)"
+                  displayName: 'Préparer le dossier de production'
+                - script: xcopy /Y /I "$(Pipeline.Workspace)\donnees-propres\*" "$(dossierPublication)\"
+                  displayName: 'Copier les fichiers publiés'
