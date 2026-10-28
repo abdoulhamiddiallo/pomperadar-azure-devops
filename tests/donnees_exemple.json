@@ -1,0 +1,20 @@
+[
+  {"id": 57000001, "cp": "57000", "ville": "METZ", "adresse": "Avenue de Strasbourg",
+   "departement": "Moselle", "code_departement": "57", "region": "Grand Est",
+   "latitude": 49.1046, "longitude": 6.1910,
+   "gazole_prix": 1.689, "gazole_maj": "2026-10-27T08:15:00+01:00",
+   "e10_prix": 1.749, "e10_maj": "2026-10-27T08:15:00+01:00",
+   "sp98_prix": null, "sp98_maj": null},
+  {"id": 57100002, "cp": 57100, "ville": "thionville", "adresse": "Route d'Arlon",
+   "departement": "Moselle", "code_departement": "57", "region": "Grand Est",
+   "latitude": 4935800, "longitude": 616700,
+   "gazole_prix": 1659, "gazole_maj": "2026-10-26T18:40:00+01:00",
+   "e10_prix": 1729, "e10_maj": "2026-10-26T18:40:00+01:00",
+   "sp98_prix": 1869, "sp98_maj": "2026-10-26T18:40:00+01:00"},
+  {"id": 75015003, "cp": "75015", "ville": "PARIS", "adresse": "Rue de Vaugirard",
+   "departement": "Paris", "code_departement": "75", "region": "Île-de-France",
+   "latitude": 48.8410, "longitude": 2.3000,
+   "gazole_prix": 1.799, "gazole_maj": "2026-10-27T10:05:00+01:00",
+   "e10_prix": 1.859, "e10_maj": "2026-10-27T10:05:00+01:00",
+   "sp98_prix": 1.949, "sp98_maj": "2026-10-27T10:05:00+01:00"}
+]
