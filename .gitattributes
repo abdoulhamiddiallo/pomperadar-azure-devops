@@ -1,0 +1,5 @@
+# Fins de ligne normalisées dans le dépôt, adaptées à chaque poste à l'extraction
+* text=auto
+*.py text eol=lf
+*.yml text eol=lf
+*.cmd text eol=crlf

@@ -1,0 +1,19 @@
+# Environnement Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+
+# Données produites (jamais versionnées : elles sont régénérées par le pipeline)
+data/brut/
+data/propre/
+
+# Résultats de tests
+resultats-tests.xml
+
+# Éditeurs et système
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store
