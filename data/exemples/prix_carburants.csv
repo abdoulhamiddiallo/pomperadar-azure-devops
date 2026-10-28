@@ -1,0 +1,9 @@
+﻿station_id;adresse;ville;cp;code_departement;departement;region;latitude;longitude;carburant;prix;date_maj
+57000001;Avenue de Strasbourg;Metz;57000;57;Moselle;Grand Est;49,1046;6,191;GAZOLE;1,689;2026-10-27 07:15:00+00:00
+57100002;Route d'Arlon;Thionville;57100;57;Moselle;Grand Est;49,358;6,167;GAZOLE;1,659;2026-10-26 17:40:00+00:00
+75015003;Rue de Vaugirard;Paris;75015;75;Paris;Île-de-France;48,841;2,3;GAZOLE;1,799;2026-10-27 09:05:00+00:00
+57100002;Route d'Arlon;Thionville;57100;57;Moselle;Grand Est;49,358;6,167;SP98;1,869;2026-10-26 17:40:00+00:00
+75015003;Rue de Vaugirard;Paris;75015;75;Paris;Île-de-France;48,841;2,3;SP98;1,949;2026-10-27 09:05:00+00:00
+57000001;Avenue de Strasbourg;Metz;57000;57;Moselle;Grand Est;49,1046;6,191;E10;1,749;2026-10-27 07:15:00+00:00
+57100002;Route d'Arlon;Thionville;57100;57;Moselle;Grand Est;49,358;6,167;E10;1,729;2026-10-26 17:40:00+00:00
+75015003;Rue de Vaugirard;Paris;75015;75;Paris;Île-de-France;48,841;2,3;E10;1,859;2026-10-27 09:05:00+00:00

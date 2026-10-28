@@ -1,0 +1,8 @@
+{
+  "source": "tests/donnees_exemple.json",
+  "stations": 3,
+  "lignes_valides": 8,
+  "lignes_quarantaine": 0,
+  "anomalies": [],
+  "statut": "ACCEPTE"
+}
